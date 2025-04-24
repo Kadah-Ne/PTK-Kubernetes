@@ -1,0 +1,7 @@
+<ul class="pagination">
+  @for (page of pages$ | async; track page) {
+    <li class="page-item" [ngClass]="{active: page === (page$ | async)}">
+      <button class="page-link" (click)="pageSelected(page)">{{ page + 1 }}</button>
+    </li>
+  }
+</ul>

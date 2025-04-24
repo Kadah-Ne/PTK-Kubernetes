@@ -1,0 +1,50 @@
+<div class="row">
+
+@if (!!(user$ | async); as user) {
+
+  <div class="col-xs-12 col-md-8 offset-md-2 comments">
+
+    <form [formGroup]="formGroup" (ngSubmit)="postComment()" class="card comment-form">
+      <div class="card-block">
+        <textarea formControlName="comment" class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+      </div>
+      <div class="card-footer">
+        <img [src]="(user$ | async)?.image" class="comment-author-img" alt="Your image" />
+        <button [disabled]="this.formGroup.invalid" class="btn btn-sm btn-primary">Post Comment</button>
+      </div>
+    </form>
+
+    @for(comment of comments$ | async; track comment.id) {
+      <div class="card comment">
+        <div class="card-block">
+          <p class="card-text">
+            {{ comment.body }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <a [routerLink]="['/profile', comment.author.username]" class="comment-author">
+            <img [src]="comment.author.image" class="comment-author-img" alt="Author image" />
+          </a>
+          &nbsp;
+          <a [routerLink]="['/profile', comment.author.username]" class="comment-author">{{ comment.author.username }}</a>
+          <span class="date-posted">{{ comment.createdAt| date: 'MMMM dd yyyy' }}</span>
+          <span class="mod-options">
+            <button (click)="removeComment(comment)" class="btn btn-sm delete-control">
+              <i class="ion-trash-a"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    }
+
+  </div>
+
+} @else {
+
+  <div class="col-xs-12 col-md-8 offset-md-4">
+    <p><a [routerLink]="['/login']" title="Go to Sign In page">Sign in</a> or <a [routerLink]="['/register']" title="Go to Sign Up page">Sign up</a> to add comments to this article</p>
+  </div>
+
+}
+
+</div>

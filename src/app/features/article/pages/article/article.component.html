@@ -1,0 +1,38 @@
+<div class="article-page">
+  @if (article$ | async; as article) {
+
+    <app-article-header [article]="article" [user$]="user$" (followAuthor)="follow($event)" (unfollowAuthor)="unfollow($event)"
+      (articleFavorited)="favorited($event)" (articleUnfavorited)="unfavorited($event)" (editArticle)="edit($event)"
+      (deleteArticle)="delete($event)">
+    </app-article-header>
+
+    <div class="container page">
+
+      <div class="row article-content">
+        <div class="col-md-12">
+          <p [innerHTML]="article.body | markdown"></p>
+          <ul class="tag-list">
+            @for (tag of article.tagList; track tag) {
+              <li class="tag-default tag-pill tag-outline">{{tag}}</li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="article-actions">
+        <div class="article-meta">
+          <app-authorship [article]="article"></app-authorship>
+          <app-article-controls [article]="article" [user$]="user$" (followAuthor)="follow($event)" (unfollowAuthor)="unfollow($event)"
+            (articleFavorited)="favorited($event)" (articleUnfavorited)="unfavorited($event)" (editArticle)="edit($event)"
+            (deleteArticle)="delete($event)">
+          </app-article-controls>
+        </div>
+      </div>
+
+      <app-article-comments [article]="article" [comments$]="comments$" [user$]="user$"
+        (addComment)="postComment($event)" (deleteComment)="removeComment($event)"></app-article-comments>
+    </div>
+  }
+</div>

@@ -1,0 +1,50 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign up</h1>
+        <p class="text-xs-center">
+          <a [routerLink]="['/login']" title="Go to sign in page">Have an account?</a>
+        </p>
+
+        @if ((form.invalid && (form.dirty || form.touched || submitted)) || (error$ | async)) {
+          <h5 class="error-messages">Errors</h5>
+          <ul class="error-messages">
+            @if (form.controls['username'].invalid && form.controls['username'].errors?.['required']) {
+              <li>Username is required</li>
+            }
+            @if (form.controls['email'].invalid && form.controls['email'].errors?.['required']) {
+              <li>Email is required</li>
+            }
+            @if (form.controls['email'].invalid && form.controls['email'].errors?.['email']) {
+              <li>Email should be a valid email format</li>
+            }
+            @if (form.controls['email'].invalid && form.controls['email'].errors?.['emailTaken']) {
+              <li>That email is already taken</li>
+            }
+
+            @if (form.controls['password'].invalid && form.controls['password'].errors?.['required']) {
+              <li>Password is required</li>
+            }
+            @if (error$ | async; as error) {
+              <li>{{ error }}</li>
+            }
+          </ul>
+        }
+
+        <form [formGroup]="form" (submit)="attemptRegistration()">
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg" type="text" formControlName="username" placeholder="Username" />
+          </fieldset>
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg" type="text" formControlName="email" placeholder="Email" />
+          </fieldset>
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg" type="password" formControlName="password" placeholder="Password" />
+          </fieldset>
+          <button type="submit" class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

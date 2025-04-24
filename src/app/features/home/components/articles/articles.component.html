@@ -1,0 +1,32 @@
+<ng-content></ng-content>
+
+@for (article of articles$ | async; track article.slug) {
+  <div class="article-preview">
+    <div class="article-meta">
+      <app-authorship [article]="article"></app-authorship>
+      <button class="btn btn-outline-primary btn-sm pull-xs-right favorite-the-article" [ngClass]="{active: article.favorited}"
+        [title]="article.favorited ? 'Unfavorite this article' : 'Favorite this article'"
+        (click)="article.favorited ? unfavorited(article) : favorited(article)">
+        <i class="ion-heart"></i> {{ article.favoritesCount | number }}
+      </button>
+    </div>
+    <a [routerLink]="['/article', article.slug]" class="preview-link">
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.description }}</p>
+      <span>Read more...</span>
+      <ul class="tag-list">
+        @for (tag of article.tagList; track tag) {
+          <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
+        }
+      </ul>
+    </a>
+  </div>
+} @empty {
+  <div class="articles-placeholder">Loading articles...</div>
+}
+
+@defer(on viewport) {
+  <app-pagination [pages$]="pages$" [page$]="page$" (pageChanged)="pageSelected($event)"></app-pagination>
+} @placeholder {
+  <div></div>
+}
