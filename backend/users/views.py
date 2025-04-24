@@ -34,6 +34,7 @@ class UserView(views.APIView):
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
+        print("get")
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
 
