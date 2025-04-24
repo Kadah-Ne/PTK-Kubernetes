@@ -1,93 +1,71 @@
-# `ng-realworld-ssr`
+# ![RealWorld Example App](logo.png)
 
-Angular RealWorld (Conduit) implementation with SSR including server-side data caching.
+> ### Django REST Framework + Angular codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
-Achieves a Lighthouse performance score in the upper nineties and a TTI generally under 1 second:
 
-![ng-realworld-lighthouse-perf-score](https://github.com/iancharlesdouglas/ng-realworld-ssr/assets/3481593/fe576667-e9f2-4a0f-b70d-1445cac7110b)
+### [Demo](https://thanhdev.pythonanywhere.com/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
-## Demo
 
-[Demo page](https://ng-realworld-ssr-project.web.app/)
+This codebase was created to demonstrate a fully fledged fullstack application built with **Django REST Framework + Angular** including CRUD operations, authentication, routing, pagination, and more.
 
-## Features
+We've gone to great lengths to adhere to the **Django REST Framework + Angular** community styleguides & best practices.
 
-- Express server-side caching to speed up home page load when preparing dynamic SSR
-- State implemented using custom store that extends RxJS `BehaviorSubject`
-- Angular Service Worker to speed up visited page load performance.
+For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
-## Developing
 
-### Starting Firebase
+# How it works
 
-You need to start Firebase locally to run SSR on NodeJS locally:
+> See how the Medium.com clone (called Conduit) is built using Django REST Framework and Angular.
 
+# Getting started
+
+## Prerequisites
+Ensure you have Python 3 and Node.js installed on your system. The current project dependency versions are:
+- Python 3.10
+- Node.js 18.5.0
+
+## Installation
+### 1. Frontend: Choose 1 of 2 ways below:
+- Install frontend dependencies and start frontend locally:
+```shell
+npm --prefix=frontend install
+npm --prefix=frontend start
 ```
-firebase serve --only functions,hosting
-```
+This command will install and start the Angular development server. You can access the Angular application through your web browser at `http://localhost:4200`.
 
-See Hosting below.
-
-### Starting Angular
-
-Start Angular in the usual way:
-
-```
-npm start
-```
-
-Or:
-
-```
-ng serve
+- Install and build frontend as static files (Choose this if you don't want to make any changes to Frontend project):
+```shell
+npm --prefix=frontend install
+npm --prefix=frontend run build
 ```
 
-## Hosting
+### 2. Backend:
+- Set up a virtual environment
+```shell
+# Install environment and dependencies
+python3 -m venv .venv
+source .venv/bin/activate
 
-This project is currently hosted on Firebase (Google Cloud) and is implemented to use that service.
-
-The **Firebase CLI** is a prerequisite to running locally or deploying.
-
-## Deploying
-
-### Manual Deployment
-
-Deploy to Firebase:
-
-```
-firebase deploy
+# or use this command on Windows
+python3 -m venv .venv
+.venv/Scripts/activate
 ```
 
-## Testing
-
-### Unit Tests -- `vitest`
-
-Unit tests are written for and executed in Vitest (via AnalogJS). Code coverage rate is over 90%.
-
-#### Running the Tests
-
-```
-npm test
+- Install backend dependencies:
+```shell
+pip install -r backend/requirements.txt
 ```
 
-#### Running with Coverage
-
-To run tests with coverage (v8):
-
-```
-npm run test:c8
+- Apply database migrations:
+```shell
+# Apply migrations
+python backend/manage.py migrate
 ```
 
-## Code Quality
+- Run the Django development server:
+```shell
+# Run server
+python backend/manage.py runserver
+```
 
-Code quality is enforced using Prettier and ESLint (incl. plugins `angular-eslint`, `unicorn` and various recommended plugins) with a standard dose of 'opinion'.
-
-Add the Prettier and ESLint plugins to VS Code and set _Format on save_ to `true` in the VS Code settings for IDE reformatting and error correction.
-
-## Change Log
-
-See [CHANGELOG.md](CHANGELOG.md)
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+Now, your local server should be running, and you can access this Django/Angular application through your web browser at http://localhost:8000.
