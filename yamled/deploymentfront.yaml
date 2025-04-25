@@ -16,4 +16,4 @@ spec:
       - name: angular
         image: memelauncher/angular:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 4200
