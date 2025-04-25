@@ -1,23 +1,23 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: backend
+  name: whoami
   labels:
-    app: backend
+    app: whoami
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: whoami
   template:
     metadata:
       labels:
-        app: backend
+        app: whoami
     spec:
       containers:
-        - name: backend
-          image: backend
+        - name: whoami
+          image: traefik/whoami
           ports:
             - name: web
               containerPort: 80
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: whoami
 
 spec:
   ports:
@@ -34,4 +34,4 @@ spec:
       targetPort: web
 
   selector:
-    app: backend
+    app: whoami

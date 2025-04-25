@@ -32,3 +32,17 @@ spec:
         resources:
           requests:
             storage: 1Gi
+---
+apiVersion : v1
+kind : Service
+metadata:
+  name : mariadb
+  labels :
+    app : mariadb
+spec :
+  ports :
+    - port: 3306
+      name : bdd
+  clusterIP: None
+  selector :
+    app: mariadb
